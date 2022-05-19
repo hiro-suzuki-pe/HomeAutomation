@@ -20,6 +20,7 @@ void LightScheduler_ScheduleTurnOn(int id, Day day, int minutesOfDay)
     scheduledEvent.event = TURN_ON;
     scheduledEvent.id = id;
 }
+
 void LightScheduler_ScheduleTurnOff(int id, Day day, int minutesOfDay)
 {
     scheduledEvent.minuteOfDay = minutesOfDay;
@@ -37,7 +38,10 @@ void LightScheduler_Wakeup(void)
     if (time.minuteOfDay != scheduledEvent.minuteOfDay)
         return;
     
-    LightController_On(scheduledEvent.id)
+    if (scheduledEvent.event == TURN_ON)
+        LightController_On(scheduledEvent.id);
+    else
+        LightController_Off(scheduledEvent.id);
 }
 
 

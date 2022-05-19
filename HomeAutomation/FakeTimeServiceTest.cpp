@@ -1,5 +1,10 @@
-#include "CppUTest/TestHarness.h"
+extern "C"
+{
+#include "HomeAutomation.h"
+#include "LightScheduler.h"
 #include "FakeTimeService.h"
+}
+#include "CppUTest/TestHarness.h"
 
 TEST(FakeTimeService, Create)
 {

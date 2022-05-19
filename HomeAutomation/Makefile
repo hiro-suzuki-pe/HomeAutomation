@@ -11,7 +11,7 @@ CFLAGS =
 TARGET  = LightControllerTest.exe
 
 # (4)コンパイル対象のソースコード
-CC_SRCS    = LightControllerSpy.c  LightScheduler.c
+CC_SRCS    = LightControllerSpy.c  LightScheduler.c FakeTimeService.c
 CPP_SRCS   = allTests.cpp LightSchedulerTest.cpp LightControllerSpyTest.cpp FakeTimeServiceTest.cpp
 
 # (5)オブジェクトファイル名
@@ -19,7 +19,7 @@ CC_OBJS    = $(CC_SRCS:.c=.o)
 CPP_OBJS    += $(CPP_SRCS:.cpp=.o)
  
 # (6)インクルードファイルのあるディレクトリパス
-INCDIR  = -I..\include  -I.
+INCDIR  = -I. -I..\cpputest\include
 LIBDIR  =
 
 # (8)追加するライブラリファイル

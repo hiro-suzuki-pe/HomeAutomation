@@ -1,8 +1,6 @@
-void    LightScheduler_Create(void);
-void    LightScheduler_Destroy(void);
 
-void    LightScheduler_ScheduleTurnOn(int , int, int );
-void    LighScheduler_Wakeup();
+void    LightController_Create(void);
+void    LightController_Destroy(void);
 void    LightController_On(int id);
 
 int LightControllerSpy_GetLastId(void);

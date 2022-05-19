@@ -1,8 +1,11 @@
-#include "CppUTest/TestHarness.h"
+extern "C"
+{
 #include "LightController.h"
 #include "LightScheduler.h"
 #include "LightControllerSpy.h"
 #include "FakeTimeService.h"
+}
+#include "CppUTest/TestHarness.h"
 
 TEST_GROUP(LightScheduler)
 {
@@ -25,7 +28,7 @@ TEST(LightScheduler, ScheduleOnEverydayNotTimeYet)
     FakeTimeService_SetDay(MONDAY);
     FakeTimeService_SetMinute(1199);
 
-    LighScheduler_Wakeup();
+    LightScheduler_Wakeup();
 
     LONGS_EQUAL(LIGHT_ID_UNKNOWN, LightControllerSpy_GetLastId());
     LONGS_EQUAL(LIGHT_STATE_UNKNOWN, LightControllerSpy_GetLastState());
