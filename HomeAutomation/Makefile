@@ -12,7 +12,7 @@ TARGET  = LightControllerTest.exe
 
 # (4)コンパイル対象のソースコード
 CC_SRCS    = LightControllerSpy.c  LightScheduler.c FakeTimeService.c
-CPP_SRCS   = allTests.cpp LightSchedulerTest.cpp LightControllerSpyTest.cpp FakeTimeServiceTest.cpp
+CPP_SRCS   = allTests.cpp FakeTimeServiceTest.cpp LightSchedulerTest.cpp LightControllerSpyTest.cpp 
 
 # (5)オブジェクトファイル名
 CC_OBJS    = $(CC_SRCS:.c=.o)
@@ -32,8 +32,18 @@ LIBS    =
 $(CC_OBJS):	$(CC_SRCS)
 	$(CC) $(CFLAGS) -c $(CC_SRCS)  $(INCDIR)
 
-$(CPP_OBJS): $(CPP_SRCS)
-	$(CPP) $(CFLAGS) -c $(CPP_SRCS)  $(INCDIR)
+#$(CPP_OBJS): $(CPP_SRCS)
+#	$(CPP) $(CFLAGS) -c $(CPP_SRCS)  $(INCDIR)
+
+
+AllTests.o: AllTests.cpp
+	$(CPP) $(CFLAGS)  $(INCDIR)   -c $<
+LightControllerSpyTest.o: LightControllerSpyTest.cpp
+	$(CPP) $(CFLAGS)  $(INCDIR)   -c $<
+FakeTimeServiceTest.o: FakeTimeServiceTest.cpp
+	$(CPP) $(CFLAGS)  $(INCDIR)   -c $<
+LightSchedulerTest.o: LightSchedulerTest.cpp
+	$(CPP) $(CFLAGS)  $(INCDIR)   -c $<
 
 # (9)ターゲットファイル生成
 $(TARGET):	$(CC_OBJS) $(CPP_OBJS)

@@ -20,7 +20,27 @@ TEST_GROUP(LightScheduler)
         LightScheduler_Destroy();
         LightController_Destroy();
     }
+
+    void setTimeTo(int day, int minuteOfDay)
+    {
+        FakeTimeService_SetDay(day);
+        FakeTimeService_SetMinute(minuteOfDay);
+    }
+
+    void checkLightState(int id, int level)
+    {
+        LONGS_EQUAL(id, LightControllerSpy_GetLastId());
+        LONGS_EQUAL(level, LightControllerSpy_GetLastState());
+    }
 };
+
+TEST(LightScheduler, ScheduleWeekEndItsMonday)
+{
+    LightScheduler_ScheduleTurnOn(3, WEEKEND, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
 
 TEST(LightScheduler, ScheduleOnEverydayNotTimeYet)
 {
@@ -63,3 +83,12 @@ TEST(LightScheduler, ScheduleOffEverydayItsTime)
     LONGS_EQUAL(3, LightControllerSpy_GetLastId());
     LONGS_EQUAL(LIGHT_ON, LightControllerSpy_GetLastState());
 }
+
+TEST(LightScheduler, ScheduleTuesdayButItsMonday)
+{
+    LightScheduler_ScheduleTurnOn(3, TUESDAY, 1200);
+    setTimeTo(MONDAY, 1200);
+    LightScheduler_Wakeup();
+    checkLightState(LIGHT_ID_UNKNOWN, LIGHT_STATE_UNKNOWN);
+}
+
